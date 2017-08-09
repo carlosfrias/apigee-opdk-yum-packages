@@ -1,7 +1,7 @@
 ---
 # tasks file for apigee-opdk-yum-packages
 
-- name: Update basic yum os packages
+- name: Update basic yum os packages with proxy
   become: yes
   yum:
     name: "{{ item }}"
