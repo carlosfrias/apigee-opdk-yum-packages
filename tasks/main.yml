@@ -1,0 +1,10 @@
+---
+# tasks file for apigee-opdk-yum-packages
+
+- name: Update basic yum os packages with no proxy
+  include: with_no_proxy.yml
+  when: http_proxy is not defined and https_proxy is not defined
+
+- name: Update basic yum os packages with no proxy
+  include: with_proxy.yml
+  when: http_proxy is defined and https_proxy is defined

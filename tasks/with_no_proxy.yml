@@ -1,0 +1,10 @@
+---
+# tasks file for apigee-opdk-yum-packages
+
+- name: Update basic yum os packages
+  become: yes
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ yum_os_minimum_packages }}"
+  when: yum_os_minimum_packages is defined
