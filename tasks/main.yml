@@ -3,7 +3,6 @@
 
 - name: Update basic yum os packages with no proxy
   include: with_no_proxy.yml
-  when: https_proxy is not defined or https_proxy | trim == '' and http_proxy is not defined or http_proxy | trim == ''
   when: (https_proxy is not defined or https_proxy | trim == '') and (http_proxy is not defined or http_proxy | trim == '')
 
 - name: Update basic yum os packages with proxy
