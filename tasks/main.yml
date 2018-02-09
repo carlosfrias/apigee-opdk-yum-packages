@@ -1,13 +1,18 @@
 ---
 # tasks file for apigee-opdk-yum-packages
-
-#- name: Update basic yum os packages with no proxy
-#  include: with_no_proxy.yml
-#  when: (https_proxy is not defined or https_proxy | trim == '') and (http_proxy is not defined or http_proxy | trim == '')
-
-#- name: Update basic yum os packages with proxy
-#  include: with_proxy.yml
-#  when: https_proxy is defined and https_proxy | trim != '' and http_proxy is defined and http_proxy | trim != ''
+- name: Update basic yum os packages with proxy
+  become: yes
+  yum:
+    name: "{{ item }}"
+    state: present
+    exclude: "{{ yum_exclude_packages | join(',') }}"
+    disable_gpg_check: yes
+  with_items: "{{ yum_os_minimum_packages }}"
+  environment:
+    http_proxy: "{{ http_proxy }}"
+    https_proxy: "{{ https_proxy }}"
+    no_proxy: "{{ no_proxy }}"
+  when: yum_os_minimum_packages is defined and yum_exclude_packages is defined
 
 - name: Update basic yum os packages with proxy
   become: yes
@@ -20,4 +25,4 @@
     http_proxy: "{{ http_proxy }}"
     https_proxy: "{{ https_proxy }}"
     no_proxy: "{{ no_proxy }}"
-  when: yum_os_minimum_packages is defined
+  when: yum_os_minimum_packages is defined and yum_exclude_packages is not defined
