@@ -7,6 +7,7 @@
     state: present
     exclude: "{{ yum_exclude_packages | join(',') }}"
     disable_gpg_check: yes
+    allow_downgrade: yes
   with_items: "{{ yum_os_minimum_packages }}"
   environment:
     http_proxy: "{{ http_proxy }}"
@@ -20,6 +21,7 @@
     name: "{{ item }}"
     state: present
     disable_gpg_check: yes
+    allow_downgrade: yes
   with_items: "{{ yum_os_minimum_packages }}"
   environment:
     http_proxy: "{{ http_proxy }}"
