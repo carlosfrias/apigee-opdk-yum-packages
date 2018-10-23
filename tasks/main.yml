@@ -10,9 +10,9 @@
     allow_downgrade: yes
   with_items: "{{ yum_os_minimum_packages }}"
   environment:
-    http_proxy: "{{ http_proxy }}"
-    https_proxy: "{{ https_proxy }}"
-    no_proxy: "{{ no_proxy }}"
+    http_proxy: "{{ http_proxy | default('') }}"
+    https_proxy: "{{ https_proxy | default('') }}"
+    no_proxy: "{{ no_proxy | default('') }}"
   when: yum_os_minimum_packages is defined and yum_exclude_packages is defined
 
 - name: Update basic yum os packages with proxy
@@ -24,7 +24,7 @@
     allow_downgrade: yes
   with_items: "{{ yum_os_minimum_packages }}"
   environment:
-    http_proxy: "{{ http_proxy }}"
-    https_proxy: "{{ https_proxy }}"
-    no_proxy: "{{ no_proxy }}"
+    http_proxy: "{{ http_proxy | default('') }}"
+    https_proxy: "{{ https_proxy | default('') }}"
+    no_proxy: "{{ no_proxy | default('') }}"
   when: yum_os_minimum_packages is defined and yum_exclude_packages is not defined
